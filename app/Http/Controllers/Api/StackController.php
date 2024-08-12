@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class StackController extends Controller
 {
+    /**
+     * Add a value to the stack.
+     *
+     * This endpoint adds a new value to the stack. The stack operates on a Last-In-First-Out (LIFO) principle.
+     * Values are pushed to the top of the stack and can later be retrieved or removed. This endpoint requires
+     * a single parameter, `value`, which is the value to be added to the stack.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function addToStack(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -26,6 +37,16 @@ class StackController extends Controller
         return response()->json(['message' => 'Value added to stack']);
     }
 
+    /**
+     * Retrieve and remove the top value from the stack.
+     *
+     * This endpoint retrieves the top value from the stack, which operates on a Last-In-First-Out (LIFO) principle.
+     * After retrieving the value, it is removed from the stack. If the stack is empty, a 404 status code with 
+     * a message indicating that the stack is empty is returned.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getFromStack()
     {
         $stack = Stack::orderBy('id', 'desc')->first();
