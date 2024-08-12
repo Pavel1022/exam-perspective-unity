@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\KeyValueStoreController;
+use App\Http\Controllers\Api\StackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/stack', [StackController::class, 'addToStack']);
+Route::get('/stack', [StackController::class, 'getFromStack']);
+
+Route::post('/key-value', [KeyValueStoreController::class, 'addKeyValue']);
+Route::get('/key-value/{key}', [KeyValueStoreController::class, 'getKeyValue']);
+Route::delete('/key-value/{key}', [KeyValueStoreController::class, 'deleteKeyValue']);
